@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     released: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     rating: {
@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
     },
     platforms: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false,
+      allowNull: true,
     },
     image: {
       type: DataTypes.STRING,

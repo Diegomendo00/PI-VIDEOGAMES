@@ -20,6 +20,7 @@ const getApiInfo = async () => {
     image: e.background_image,
     genres: e.genres?.map((genre) => genre.name),
     rating: e.rating,
+    platforms: e.platforms?.map((plat) => plat.platform.name),
   }));
 };
 
@@ -67,9 +68,8 @@ const listVideogames = async (req, res) => {
 const videogameDetails = async (req, res) => {
   try {
     const { idVideogame } = req.params;
-    //Diferencio entre videogames de API y DB porque los de DB tienen genres con otro formato
+
     if (isNaN(idVideogame)) {
-      //es uno de mi DB, ya que yo uso un hash alfanumerico en el id
       const videogameDetails = await Videogame.findOne({
         where: { id: idVideogame },
         include: {
@@ -82,17 +82,17 @@ const videogameDetails = async (req, res) => {
       });
       res.status(200).json(videogameDetails);
     } else {
-      const detailsRequest = await axios.get(
+      const details = await axios.get(
         `https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`
       );
       const videogameDetails = {
-        name: detailsRequest.data.name,
-        description: detailsRequest.data.description_raw,
-        image: detailsRequest.data.background_image,
-        platforms: detailsRequest.data.parent_platforms,
-        genres: detailsRequest.data.genres.map((genre) => genre.name),
-        rating: detailsRequest.data.rating,
-        released: detailsRequest.data.released,
+        name: details.data.name,
+        description: details.data.description_raw,
+        image: details.data.background_image,
+        platforms: details.data.parent_platforms,
+        genres: details.data.genres.map((genre) => genre.name),
+        rating: details.data.rating,
+        released: details.data.released,
       };
       res.status(200).json(videogameDetails);
     }
@@ -101,4 +101,131 @@ const videogameDetails = async (req, res) => {
   }
 };
 
-module.exports = { getAllVideogames, listVideogames, videogameDetails };
+const getGenres = async (req, res) => {
+  try {
+    const apiGenres = await axios.get(
+      `https://api.rawg.io/api/genres?key=${API_KEY}`
+    );
+    const genres = apiGenres.data.results.map((g) => {
+      Genre.findOrCreate({
+        where: { name: g.name },
+      });
+      return g.name;
+    });
+    res.status(200).json(genres);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+const createVideogame = async (req, res) => {
+  try {
+    let {
+      name,
+      description,
+      released,
+      rating,
+      platforms,
+      image,
+      createdInDb,
+      genres,
+    } = req.body;
+    if (
+      !name ||
+      !description ||
+      !platforms[0] ||
+      !genres[0] ||
+      !rating ||
+      rating < 0 ||
+      rating > 5
+    )
+      throw new Error(
+        "Check data: name, description, rating(0-5), platforms and genres are required"
+      );
+    const newVideogame = await Videogame.create({
+      name,
+      description,
+      released,
+      rating,
+      platforms,
+      image,
+      createdInDb,
+    });
+    const videogameGenres = await Genre.findAll({
+      where: { name: genres },
+    });
+    videogameGenres.forEach((genre) => {
+      newVideogame.addGenre(genre);
+    });
+    res.status(200).send("Videogame created successfully");
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+};
+
+const getPlatforms = async () => {
+  const apiPlat = await axios.get(
+    `https://api.rawg.io/api/platforms?key=${API_KEY}`
+  );
+  const apiPlatMap = apiPlat.data.results.map((v) => v.name);
+  return apiPlatMap;
+};
+
+const listPlatforms = async (req, res) => {
+  try {
+    const plat = await getPlatforms();
+    res.status(200).json(plat);
+  } catch (e) {
+    res.status(400).send(error.message);
+  }
+};
+
+const deleteVideogame = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (isNaN(id)) {
+      //es uno de mi DB, ya que yo uso un hash alfanumerico en el id
+      const deleteResponse = await Videogame.destroy({
+        where: { id: id },
+      });
+      //actualizo mi DB:
+      getAllVideogames();
+      if (deleteResponse) {
+        return res.status(200).json("Videogame deleted successfully");
+      } else {
+        return res.status(404).send("Videogame not found");
+      }
+    } else {
+      return res.status(404).send("Invalid id");
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+const updateVideogame = async (req, res) => {
+  try {
+    const { id, name, description, rating } = req.body;
+    await Videogame.update(
+      {
+        name,
+        description,
+        rating,
+      },
+      { where: { name } }
+    );
+    res.status(200).send("Videogame updated");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+module.exports = {
+  getAllVideogames,
+  listVideogames,
+  videogameDetails,
+  getGenres,
+  createVideogame,
+  listPlatforms,
+  deleteVideogame,
+  updateVideogame,
+};
