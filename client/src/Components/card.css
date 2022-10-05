@@ -1,0 +1,38 @@
+@import url("http://fonts.cdnfonts.com/css/cubicfive");
+
+.container {
+  position: relative;
+  
+}
+
+.card {
+  background-color: rgba(6, 216, 16, 0.693);
+  opacity: 1.1;
+  height: 300px;
+  width: 300px;
+  margin: 50px;
+  border: 3px solid rgb(51, 48, 50);
+  border-radius: 5px;
+}
+
+.name {
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.imag {
+  height: 100px;
+  width: 200px;
+  margin: 25px;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.genresb {
+  font-family: "CubicFive10", sans-serif;
+  font-size: small;
+  color: aliceblue;
+  background-color: rgb(28, 27, 29);
+  margin-top: 15px;
+  margin-bottom: 10px;
+}

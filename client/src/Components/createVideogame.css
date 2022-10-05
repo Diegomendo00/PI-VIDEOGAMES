@@ -1,0 +1,114 @@
+@import url("http://fonts.cdnfonts.com/css/cubicfive");
+
+.fondoform {
+  background-color: rgba(240, 248, 255, 0.834);
+  margin-top: 50px;
+  margin-left: 300px;
+  margin-right: 300px;
+  border-radius: 30px;
+}
+.tituloform {
+  font-size: xx-large;
+  color: rgb(9, 165, 204);
+  text-shadow: 2px 0 rgb(50, 3, 46), -2px 0 rgb(50, 3, 46), 0 2px rgb(50, 3, 46),
+    0 -2px rgb(50, 3, 46), 1px 1px rgb(86, 7, 79), -1px -1px rgb(50, 3, 46),
+    1px -1px rgb(50, 3, 46), -1px 1px rgb(50, 3, 46);
+}
+
+.letraslabel {
+  margin-top: 10px;
+  font-size: medium;
+  margin-left: 300px;
+  margin-right: 300px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.inputname {
+  margin-left: 260px;
+  margin-right: 300px;
+  width: 250px;
+  background-color: rgba(113, 61, 217, 0.318);
+  color: rgb(0, 0, 0);
+}
+.inputdes {
+  margin-left: 260px;
+  margin-right: 300px;
+  background-color: rgba(113, 61, 217, 0.341);
+  color: rgb(0, 0, 0);
+  width: 250px;
+}
+
+::placeholder {
+  color: rgb(251, 251, 251);
+  font-size: x-large;
+}
+
+.inputda {
+  margin-top: 10px;
+  margin-left: 260px;
+  margin-right: 300px;
+  width: 250px;
+  background-color: rgba(113, 61, 217, 0.318);
+  color: rgb(0, 0, 0);
+}
+
+.inputche {
+  margin-top: 10px;
+  display: inline;
+  font-family: "CubicFive10", sans-serif;
+  font-size: medium;
+  color: rgb(62, 39, 84);
+}
+
+.inputgenre {
+  margin-left: 260px;
+  margin-right: 300px;
+  width: 250px;
+  background-color: rgba(61, 108, 217, 0.699);
+  color: rgb(247, 244, 250);
+}
+
+.inputplat {
+  margin-left: 260px;
+  margin-right: 300px;
+  width: 250px;
+  background-color: rgba(61, 108, 217, 0.699);
+  color: rgb(247, 244, 250);
+}
+
+.goback1 {
+  font-size: medium;
+  margin-left: 220px;
+  margin-right: 300px;
+  width: 250px;
+  border-radius: 10px;
+  color: rgb(250, 245, 249);
+  background-color: rgb(80, 66, 207);
+}
+
+.goback2 {
+  font-family: "CubicFive10", sans-serif;
+  color: rgb(255, 255, 255);
+  height: 25px;
+  width: 100px;
+  border-radius: 10px;
+  border: 3px solid rgb(0, 0, 0);
+  background-color: rgb(242, 241, 244);
+  background: linear-gradient(
+    90deg,
+    rgb(113, 61, 217) 10%,
+    rgb(88, 79, 184) 100%
+  );
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.lista {
+  list-style: none;
+}
+
+label {
+  font-weight: bold;
+}

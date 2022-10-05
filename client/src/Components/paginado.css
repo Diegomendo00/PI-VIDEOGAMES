@@ -1,0 +1,19 @@
+.pag {
+  float: left;
+
+  text-decoration: double;
+  width: 25%;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: 120px;
+  width: 50px;
+  height: 20px;
+  background-color: rgb(0, 129, 180);
+  cursor: pointer;
+}
+
+.pag:hover {
+  transform: scale(1.1);
+  background-color: rgba(235, 235, 3, 0.721);
+  color: rgb(0, 0, 0);
+}

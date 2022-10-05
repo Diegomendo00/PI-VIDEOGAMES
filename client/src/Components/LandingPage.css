@@ -1,0 +1,31 @@
+@import url("http://fonts.cdnfonts.com/css/cubicfive");
+
+.myButton {
+  position: absolute;
+  left: 45%;
+  top: 39%;
+  color: rgb(16, 0, 158);
+  cursor: pointer;
+}
+
+.myButton:hover {
+  color: rgb(0, 0, 0);
+}
+
+.MyImage button {
+  font-family: "CubicFive10", sans-serif;
+  font-size: large;
+  height: 60px;
+  width: 180px;
+  border-radius: 20px;
+  border: 3px solid rgb(5, 0, 4);
+  background-color: rgb(70, 194, 228);
+  background: linear-gradient(90deg, rgb(41, 65, 201) 10%, #fff 100%);
+}
+
+.theImage {
+  background: fixed no-repeat;
+  background-size: cover;
+  width: 1350px;
+  height: 660px;
+}
